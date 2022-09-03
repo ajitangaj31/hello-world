@@ -16,6 +16,7 @@ import com.javainuse.springbootsecurity.config.CustomUserDetailsService;
 import com.javainuse.springbootsecurity.config.JwtUtil;
 import com.javainuse.springbootsecurity.model.AuthenticationRequest;
 import com.javainuse.springbootsecurity.model.AuthenticationResponse;
+import com.javainuse.springbootsecurity.model.UserDTO;
 
 @RestController
 public class AuthenticationController {
@@ -45,5 +46,10 @@ public class AuthenticationController {
 		UserDetails userdetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtUtil.generateToken(userdetails);
 		return ResponseEntity.ok(new AuthenticationResponse(token));
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 }

@@ -38,7 +38,7 @@ public class SpringSecurityConfiguration {
 		http.csrf().disable()
 		.authorizeRequests().antMatchers("/helloadmin").hasRole("ADMIN")
 		.antMatchers("/hellouser").hasAnyRole("USER","ADMIN")
-		.antMatchers("/authenticate").permitAll().anyRequest().authenticated()
+		.antMatchers("/authenticate", "/register").permitAll().anyRequest().authenticated()
 		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
 		and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
 		and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
